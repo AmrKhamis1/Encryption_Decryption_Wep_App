@@ -1,0 +1,39 @@
+@import "./BasedStyles.css";
+
+.rail-fence-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.input-group textarea {
+  width: 100%;
+  margin-top: 10px;
+}
+
+button {
+  width: 250px;
+}
+
+.results-container {
+  width: 100%;
+}
+
+.results-container p {
+  background-color: var(--input-background);
+  padding: 12px;
+  border-radius: 8px;
+  margin: 10px 0;
+}
+
+strong {
+  color: var(--primary);
+}

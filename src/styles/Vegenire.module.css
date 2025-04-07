@@ -1,0 +1,52 @@
+@import "./BasedStyles.css";
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.key-input {
+  max-width: 300px;
+}
+
+.option-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.option-checkbox {
+  margin-right: 10px;
+  accent-color: var(--primary);
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.button {
+  width: 200px;
+}
+
+.results-preview {
+  padding: 15px;
+  background-color: var(--input-background);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-family: monospace;
+}
+
+.hint-text {
+  color: var(--text-secondary);
+  font-size: 14px;
+  margin-top: 5px;
+}

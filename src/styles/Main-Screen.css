@@ -1,0 +1,60 @@
+@import "./BasedStyles.css";
+
+.main-screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.main-screen__logo-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.main-screen__logo {
+  width: 100px;
+  height: auto;
+}
+
+.main-screen__text-input {
+  width: 100%;
+}
+
+.main-screen__key-input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.main-screen__key-input-group label {
+  width: 150px;
+  flex-shrink: 0;
+}
+
+.main-screen__key-input {
+  flex-grow: 1;
+  max-width: 200px;
+}
+
+.main-screen__button {
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+}
+
+.main-screen__result-box {
+  margin-bottom: 20px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.main-screen__result-text {
+  padding: 15px;
+  background-color: var(--input-background);
+  margin: 0;
+}

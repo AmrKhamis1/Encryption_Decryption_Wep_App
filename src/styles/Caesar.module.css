@@ -1,0 +1,36 @@
+@import "./BasedStyles.css";
+
+.textInput {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.checkbox {
+  accent-color: var(--primary);
+  margin-right: 10px;
+}
+
+.keyInput {
+  width: 80px;
+  margin-left: 10px;
+}
+
+.optionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+.button {
+  width: 250px;
+}
+
+.resultsContainer {
+  width: 100%;
+}
+
+.cardTitle {
+  color: var(--text-primary);
+  margin-bottom: 15px;
+}
