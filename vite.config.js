@@ -7,5 +7,6 @@ export default defineConfig({
     host: "127.0.0.1",
     port: 8080,
   },
+  base: "/Encryption_Decryption_Wep_App/",
   plugins: [react()],
 });
