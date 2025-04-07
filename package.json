@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://AmrKhamis1.github.io/Encryption_Decryption_Wep_App",
+  "homepage": "https://amrkhamis1.github.io/Encryption_Decryption_Wep_App",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

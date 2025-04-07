@@ -13,7 +13,7 @@ import VCracker from "./components/VCrack.jsx";
 
 export default function App() {
   return (
-    <Router>
+    <Router basename="/Encryption_Decryption_Wep_App/">
       <div
         style={{
           backgroundColor: "#121212",
