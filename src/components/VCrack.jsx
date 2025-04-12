@@ -618,10 +618,8 @@ export default function VCracker() {
         Best Regards
         <br></br>
         <br></br>
-        <a style={{ color: "#bb86fc" }} href="https://github.com/AmrKhamis1">
-          Amr Khamis
-        </a>
-        <br />© CopyRight | 2025
+
+        <br />© 2025 <a style={{ color: "#bb86fc" }} href="https://github.com/AmrKhamis1"> Amr Khamis </a> | All rights reserved.
       </span>
     </div>
   );
