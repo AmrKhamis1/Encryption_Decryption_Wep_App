@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            line-height: 1.5;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 5px;
+            border: 2px solid;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .explanation {
+            background-color: #f0f4f8;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .formula {
+            background-color: #fff;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+        }
+
+        .blue-section {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+
+        .blue-section h2 {
+            color: #1565c0;
+        }
+
+        .orange-section {
+            background-color: #fff3e0;
+            border-color: #ff9800;
+        }
+
+        .orange-section h2 {
+            color: #e65100;
+        }
+
+        .green-section {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+
+        .green-section h2 {
+            color: #2e7d32;
+        }
+
+        .teal-section {
+            background-color: #e0f7fa;
+            border-color: #00bcd4;
+        }
+
+        .teal-section h2 {
+            color: #006064;
+        }
+
+        .purple-section {
+            background-color: #f3e5f5;
+            border-color: #9c27b0;
+        }
+
+        .purple-section h2 {
+            color: #6a1b9a;
+        }
+
+        .red-section {
+            background-color: #ffebee;
+            border-color: #f44336;
+        }
+
+        .red-section h2 {
+            color: #b71c1c;
+        }
+
+        .monospace {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f5f5f5;
+        }
+
+        .chart-container {
+            margin: 20px 0;
+            position: relative;
+            height: 200px;
+            border: 1px solid #bdbdbd;
+            background-color: white;
+        }
+
+        .chart {
+            display: flex;
+            align-items: flex-end;
+            height: 150px;
+            margin-top: 10px;
+            margin-left: 50px;
+            margin-right: 10px;
+        }
+
+        .bar {
+            flex: 1;
+            margin: 0 1px;
+            background-color: #ff9800;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .best-bar {
+            background-color: #4caf50;
+        }
+
+        .x-axis {
+            margin-left: 50px;
+            margin-right: 10px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .x-label {
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .y-axis {
+            position: absolute;
+            height: 150px;
+            width: 50px;
+            top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .y-label {
+            font-size: 10px;
+            text-align: right;
+            padding-right: 5px;
+        }
+
+        .axis-title {
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .highlight {
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        .best-marker {
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            color: #b71c1c;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .y-axis-title {
+            position: absolute;
+            transform: rotate(-90deg);
+            left: -70px;
+            top: 75px;
+            width: 150px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px dashed #4caf50;
+            margin: 10px 0;
+        }
+
+        .english-ic {
+            text-align: right;
+            color: #2e7d32;
+            font-size: 10px;
+            margin-top: -10px;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-color: #2196f3;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+
+        .example-calculation {
+            background-color: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        .note {
+            font-style: italic;
+            color: #666;
+        }
+
+        .key-point {
+            font-weight: bold;
+            color: #d32f2f;
+        }
+
+        .alphabet-table {
+            background-color: #fff;
+            width: 100%;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .alphabet-table td {
+            width: 3.85%;
+            padding: 5px 0;
+        }
+
+        .frequency-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .frequency-table th,
+        .frequency-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .frequency-table th {
+            background-color: #f5f5f5;
+        }
+
+        pre {
+            background-color: #f5f5f5;
+            padding: 15px;
+            overflow: auto;
+            border-left: 4px solid #9c27b0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Breaking the Vigenère Cipher: Detailed Step-by-Step Analysis</h1>
+
+    <!-- Introduction -->
+    <div class="section blue-section">
+        <h2>Introduction to the Vigenère Cipher</h2>
+        <p>The Vigenère cipher is a method of encrypting text using a series of different Caesar ciphers based on the
+            letters of a keyword. It employs a form of polyalphabetic substitution, making it more secure than simple
+            substitution ciphers.</p>
+
+        <div class="explanation">
+            <p><strong>Why was it historically important?</strong> The Vigenère cipher was considered unbreakable for
+                over three centuries until Friedrich Kasiski published a general method of deciphering in 1863. Unlike
+                simple Caesar ciphers that use a single shift value, Vigenère uses a <em>different shift value for each
+                    letter</em> of the plaintext, making frequency analysis more difficult.</p>
+        </div>
+
+        <h3>The Basic Mechanism</h3>
+        <p>To understand how the Vigenère cipher works, we first need to map letters to numbers:</p>
+
+        <table class="alphabet-table">
+            <tr>
+                <td>A = 0</td>
+                <td>B = 1</td>
+                <td>C = 2</td>
+                <td>D = 3</td>
+                <td>E = 4</td>
+                <td>F = 5</td>
+                <td>G = 6</td>
+                <td>H = 7</td>
+                <td>I = 8</td>
+                <td>J = 9</td>
+                <td>K = 10</td>
+                <td>L = 11</td>
+                <td>M = 12</td>
+            </tr>
+            <tr>
+                <td>N = 13</td>
+                <td>O = 14</td>
+                <td>P = 15</td>
+                <td>Q = 16</td>
+                <td>R = 17</td>
+                <td>S = 18</td>
+                <td>T = 19</td>
+                <td>U = 20</td>
+                <td>V = 21</td>
+                <td>W = 22</td>
+                <td>X = 23</td>
+                <td>Y = 24</td>
+                <td>Z = 25</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Original message and encryption -->
+    <div class="section orange-section">
+        <h2>Our Example Problem</h2>
+        <p>We'll start with a plaintext message that we want to encrypt using the Vigenère cipher:</p>
+        <p class="monospace">Original message: MEETMEATTHEUSUALPLACE</p>
+        <p class="monospace">Key: CIPHER</p>
+
+        <div class="explanation">
+            <p><strong>How the key works:</strong> The key "CIPHER" is repeated as many times as needed to match the
+                length of the plaintext. Each letter of the key specifies a different Caesar shift value for the
+                corresponding plaintext letter.</p>
+        </div>
+
+        <h3>Step-by-Step Encryption</h3>
+        <p>First, we repeat the key to match the length of our message:</p>
+        <p class="monospace">Plaintext: M E E T M E A T T H E U S U A L P L A C E</p>
+        <p class="monospace" style="color: #e65100;">Key: C I P H E R C I P H E R C I P H E R C I P</p>
+
+        <p>Now, for each position, we perform the encryption by adding the value of the plaintext letter and the key
+            letter, then taking the result modulo 26:</p>
+
+        <div class="formula">
+            Ciphertext letter = (Plaintext letter + Key letter) mod 26
+        </div>
+
+        <div class="example-calculation">
+            <p>For the first letter:</p>
+            <p>Plaintext: M (12)</p>
+            <p>Key: C (2)</p>
+            <p>Calculation: (12 + 2) mod 26 = 14 mod 26 = 14 = O</p>
+
+            <p>For the second letter:</p>
+            <p>Plaintext: E (4)</p>
+            <p>Key: I (8)</p>
+            <p>Calculation: (4 + 8) mod 26 = 12 mod 26 = 12 = M</p>
+
+            <p>...and so on for each letter.</p>
+        </div>
+
+        <p>The complete encryption results in:</p>
+        <p class="monospace">Ciphertext: O M T A O M P A V P T B U K D P S T P J M</p>
+    </div>
+
+    <!-- Beginning decryption -->
+    <div class="section green-section">
+        <h2>Cryptanalysis Approach: Breaking the Cipher</h2>
+        <p>Now let's imagine we intercepted the ciphertext <span class="monospace">OMTAOMPATVPTBUKDPSTPJM</span> but
+            don't know the key. How do we break it?</p>
+
+        <div class="explanation">
+            <p><strong>Key challenges:</strong> To decrypt a Vigenère cipher without knowing the key, we need to:</p>
+            <ol>
+                <li>Determine the <strong>key length</strong> (how many different Caesar ciphers were used)</li>
+                <li>Break each of those Caesar ciphers individually</li>
+            </ol>
+        </div>
+
+        <h3><span class="step-number">1</span>Determining Key Length: Index of Coincidence</h3>
+        <p>The first step is to figure out how long the key is. For this, we use a statistical measure called the
+            <strong>Index of Coincidence (IC)</strong>.</p>
+
+        <div class="explanation">
+            <p><strong>What is the Index of Coincidence?</strong> The IC measures the likelihood of two randomly
+                selected letters from a text being the same. In English, this value is typically around 0.067 (or 6.7%).
+                For random text, it's closer to 0.038 (3.8%).</p>
+            <p>The mathematical formula is:</p>
+            <div class="formula">
+                IC = Σ(n<sub>i</sub> × (n<sub>i</sub> - 1)) / (N × (N - 1))
+            </div>
+            <p>Where n<sub>i</sub> is the frequency of each letter, and N is the total text length.</p>
+        </div>
+
+        <h4>Testing Different Key Lengths</h4>
+        <p>We test key lengths from 1 to 10 by dividing the ciphertext into that many groups and calculating the average
+            IC for all groups:</p>
+
+        <div class="example-calculation">
+            <p><strong>Example for key length 6:</strong></p>
+            <p>We divide the ciphertext into 6 groups:</p>
+            <ul>
+                <li>Group 1: O,P,U,P (positions 0,6,12,18)</li>
+                <li>Group 2: M,A,K,J (positions 1,7,13,19)</li>
+                <li>Group 3: T,V,D,M (positions 2,8,14,20)</li>
+                <li>Group 4: A,P,P (positions 3,9,15,21)</li>
+                <li>Group 5: O,T,S (positions 4,10,16)</li>
+                <li>Group 6: M,B,T (positions 5,11,17)</li>
+            </ul>
+            <p>Then we calculate the IC for each group and average them.</p>
+            <p>For Group 1 (O,P,U,P):</p>
+            <ul>
+                <li>O appears 1 time: n<sub>O</sub> = 1</li>
+                <li>P appears 2 times: n<sub>P</sub> = 2</li>
+                <li>U appears 1 time: n<sub>U</sub> = 1</li>
+                <li>Total length: N = 4</li>
+                <li>IC = (1×0 + 2×1 + 1×0) / (4×3) = 2/12 = 0.167</li>
+            </ul>
+            <p>We do this calculation for all 6 groups, and the average IC is approximately 0.066, which is very close
+                to the expected IC for English text (0.067).</p>
+        </div>
+
+        <div class="chart-container">
+            <div class="y-axis-title">Index of Coincidence</div>
+            <div class="y-axis">
+                <div class="y-label">0.07</div>
+                <div class="y-label">0.06</div>
+                <div class="y-label">0.05</div>
+                <div class="y-label">0.04</div>
+                <div class="y-label">0.03</div>
+            </div>
+
+            <div class="chart">
+                <div class="bar" style="height: 30%"></div>
+                <div class="bar" style="height: 35%"></div>
+                <div class="bar" style="height: 42%"></div>
+                <div class="bar" style="height: 51%"></div>
+                <div class="bar" style="height: 55%"></div>
+                <div class="bar best-bar" style="height: 85%"></div>
+                <div class="bar" style="height: 60%"></div>
+                <div class="bar" style="height: 57%"></div>
+                <div class="bar" style="height: 56%"></div>
+                <div class="bar" style="height: 52%"></div>
+            </div>
+
+            <hr style="position: absolute; top: 35px; left: 50px; right: 10px;">
+            <div class="english-ic">English text IC ≈ 0.067</div>
+
+            <div class="x-axis">
+                <div class="x-label">1</div>
+                <div class="x-label">2</div>
+                <div class="x-label">3</div>
+                <div class="x-label">4</div>
+                <div class="x-label">5</div>
+                <div class="x-label">6</div>
+                <div class="x-label">7</div>
+                <div class="x-label">8</div>
+                <div class="x-label">9</div>
+                <div class="x-label">10</div>
+            </div>
+            <div class="axis-title">Key Length</div>
+        </div>
+
+        <p class="key-point">Key length 6 yields an IC closest to English text (0.067), strongly suggesting this is the
+            correct key length.</p>
+
+        <div class="note">
+            <p><strong>Why this works:</strong> If we guess the correct key length, each group contains letters that
+                were encrypted with the same Caesar shift. This means each group should have letter frequencies similar
+                to normal English, resulting in an IC close to 0.067. Incorrect key lengths will mix letters encrypted
+                with different shifts, resulting in more uniform (random-looking) distributions with lower IC values.
+            </p>
+        </div>
+    </div>
+
+    <!-- Detailed analysis of sequences -->
+    <div class="section teal-section">
+        <h2><span class="step-number">2</span>Analyzing Each Key Position</h2>
+        <p>Now that we've determined the key length is most likely 6, we can analyze each position separately.</p>
+
+        <div class="explanation">
+            <p><strong>Key insight:</strong> Each position in the key corresponds to a simple Caesar cipher. If we can
+                determine the shift value for each position, we can reconstruct the entire key.</p>
+        </div>
+
+        <h3>Separating the Ciphertext</h3>
+        <p>First, we separate the ciphertext into 6 groups based on their positions:</p>
+
+        <table>
+            <tr>
+                <th>Group</th>
+                <th>Positions</th>
+                <th>Letters</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>0, 6, 12, 18</td>
+                <td class="monospace">O P U P</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>1, 7, 13, 19</td>
+                <td class="monospace">M A K J</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>2, 8, 14, 20</td>
+                <td class="monospace">T V D M</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>3, 9, 15, 21</td>
+                <td class="monospace">A P P</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>4, 10, 16</td>
+                <td class="monospace">O T S</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>5, 11, 17</td>
+                <td class="monospace">M B T</td>
+            </tr>
+        </table>
+
+        <div class="note">
+            <p>Each of these groups was encrypted using the same shift value (the same letter from the key). For
+                example, all letters in Group 1 were encrypted with the first letter of the key.</p>
+        </div>
+    </div>
+
+    <!-- Frequency analysis -->
+    <div class="section purple-section">
+        <h2><span class="step-number">3</span>Breaking Each Caesar Cipher</h2>
+        <p>For each of the 6 groups, we need to determine which of the 26 possible shifts was used.</p>
+
+        <div class="explanation">
+            <p><strong>How to break a Caesar cipher:</strong> We can either:</p>
+            <ol>
+                <li>Try all 26 possible shifts and see which one produces readable text</li>
+                <li>Use frequency analysis to determine the most likely shift</li>
+            </ol>
+            <p>For short sequences like ours, method 2 is more reliable. We'll use the Chi-Squared statistic to measure
+                how closely each potential decryption matches English letter frequencies.</p>
+        </div>
+
+        <h3>English Letter Frequencies</h3>
+        <p>For reference, these are the expected frequencies of letters in English text:</p>
+
+        <table class="frequency-table">
+            <tr>
+                <th>Letter</th>
+                <td>A</td>
+                <td>B</td>
+                <td>C</td>
+                <td>D</td>
+                <td>E</td>
+                <td>F</td>
+                <td>G</td>
+                <td>H</td>
+                <td>I</td>
+                <td>J</td>
+                <td>K</td>
+                <td>L</td>
+                <td>M</td>
+            </tr>
+            <tr>
+                <th>Frequency</th>
+                <td>8.2%</td>
+                <td>1.5%</td>
+                <td>2.8%</td>
+                <td>4.3%</td>
+                <td>12.7%</td>
+                <td>2.2%</td>
+                <td>2.0%</td>
+                <td>6.1%</td>
+                <td>7.0%</td>
+                <td>0.2%</td>
+                <td>0.8%</td>
+                <td>4.0%</td>
+                <td>2.4%</td>
+            </tr>
+            <tr>
+                <th>Letter</th>
+                <td>N</td>
+                <td>O</td>
+                <td>P</td>
+                <td>Q</td>
+                <td>R</td>
+                <td>S</td>
+                <td>T</td>
+                <td>U</td>
+                <td>V</td>
+                <td>W</td>
+                <td>X</td>
+                <td>Y</td>
+                <td>Z</td>
+            </tr>
+            <tr>
+                <th>Frequency</th>
+                <td>6.7%</td>
+                <td>7.5%</td>
+                <td>1.9%</td>
+                <td>0.1%</td>
+                <td>6.0%</td>
+                <td>6.3%</td>
+                <td>9.1%</td>
+                <td>2.8%</td>
+                <td>1.0%</td>
+                <td>2.4%</td>
+                <td>0.2%</td>
+                <td>2.0%</td>
+                <td>0.1%</td>
+            </tr>
+        </table>
+
+        <h3>Chi-Squared Analysis for Group 1 ("OPUP")</h3>
+        <p>Let's perform a detailed analysis on Group 1 as an example:</p>
+
+        <div class="example-calculation">
+            <p>For each possible shift (0-25), we:</p>
+            <ol>
+                <li>Decrypt all letters in Group 1 using that shift</li>
+                <li>Calculate the frequencies of each letter in the decrypted text</li>
+                <li>Compare those frequencies to the expected English frequencies using the Chi-Squared test</li>
+            </ol>
+
+            <p><strong>Example: Testing shift value 2 (key letter 'C')</strong></p>
+            <p>To decrypt with shift 2, we subtract 2 from each letter value (mod 26):</p>
+            <ul>
+                <li>O (14) → M (12): (14-2) mod 26 = 12</li>
+                <li>P (15) → N (13): (15-2) mod 26 = 13</li>
+                <li>U (20) → S (18): (20-2) mod 26 = 18</li>
+                <li>P (15) → N (13): (15-2) mod 26 = 13</li>
+            </ul>
+            <p>Result: "MNSN"</p>
+
+            <p>We calculate the Chi-Squared statistic to measure how well this matches English:</p>
+            <div class="formula">
+                χ² = Σ ((observed frequency - expected frequency)² / expected frequency)
+            </div>
+
+            <p>A lower Chi-Squared value indicates a better match to English text. For shift 2, this value is much lower
+                than for other shifts, suggesting this is the correct shift.</p>
+        </div>
+
+        <div class="chart-container">
+            <div class="y-axis-title">Chi-Squared Score</div>
+            <div class="y-axis">
+                <div class="y-label">Low</div>
+                <div class="y-label">Medium</div>
+                <div class="y-label">High</div>
+            </div>
+
+            <div class="chart">
+                <div class="bar" style="height: 25%"></div>
+                <div class="bar" style="height: 35%"></div>
+                <div class="bar best-bar" style="height: 115%">
+                    <div class="best-marker">BEST!</div>
+                </div>
+                <div class="bar" style="height: 45%"></div>
+                <div class="bar" style="height: 55%"></div>
+                <div class="bar" style="height: 30%"></div>
+                <div class="bar" style="height: 40%"></div>
+                <div class="bar" style="height: 50%"></div>
+                <div class="bar" style="height: 60%"></div>
+                <div class="bar" style="height: 35%"></div>
+                <div class="bar" style="height: 20%"></div>
+                <div class="bar" style="height: 40%"></div>
+                <div class="bar" style="height: 45%"></div>
+                <div class="bar" style="height: 30%"></div>
+                <div class="bar" style="height: 50%"></div>
+                <div class="bar" style="height: 25%"></div>
+                <div class="bar" style="height: 35%"></div>
+                <div class="bar" style="height: 45%"></div>
+                <div class="bar" style="height: 50%"></div>
+                <div class="bar" style="height: 30%"></div>
+                <div class="bar" style="height: 25%"></div>
+                <div class="bar" style="height: 35%"></div>
+                <div class="bar" style="height: 40%"></div>
+                <div class="bar" style="height: 20%"></div>
+                <div class="bar" style="height: 30%"></div>
+                <div class="bar" style="height: 40%"></div>
+            </div>
+
+            <div class="x-axis">
+                <div class="x-label">A</div>
+                <div class="x-label">B</div>
+                <div class="x-label">C</div>
+                <div class="x-label">D</div>
+                <div class="x-label">E</div>
+                <div class="x-label">F</div>
+                <div class="x-label">G</div>
+                <div class="x-label">H</div>
+                <div class="x-label">I</div>
+                <div class="x-label">J</div>
+                <div class="x-label">K</div>
+                <div class="x-label">L</div>
+                <div class="x-label">M</div>
+                <div class="x-label">N</div>
+                <div class="x-label">O</div>
+                <div class="x-label">P</div>
+                <div class="x-label">Q</div>
+                <div class="x-label">R</div>
+                <div class="x-label">S</div>
+                <div class="x-label">T</div>
+                <div class="x-label">U</div>
+                <div class="x-label">V</div>
+                <div class="x-label">W</div>
+                <div class="x-label">X</div>
+                <div class="x-label">Y</div>
+                <div class="x-label">Z</div>
+            </div>
+            <div class="axis-title">Shift Value (key letter)</div>
+        </div>
+
+        <div class="note">
+            <p>In this chart, a <strong>lower bar</strong> indicates a better statistical match to English. The shortest
+                bar at position C suggests that shift value 2 (corresponding to key letter 'C') is the most likely
+                candidate for this position.</p>
+        </div>
+
+        <h3>Repeating for All Groups</h3>
+        <p>We perform the same analysis for all 6 groups. For each group, we find the shift that gives the best match to
+            English letter frequencies.</p>
+
+<table>
+    <tr>
+        <th>Group</th>
+        <th>Best Shift</th>
+        <th>Key Letter</th>
+        <th>Original Letters</th>
+        <th>Decrypted Letters</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>2</td>
+        <td>C</td>
+        <td class="monospace">O P U P</td>
+        <td class="monospace">M N S N</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>8</td>
+        <td>I</td>
+        <td class="monospace">M A K J</td>
+        <td class="monospace">E S C B</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>15</td>
+        <td>P</td>
+        <td class="monospace">T V D M</td>
+        <td class="monospace">E G O X</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>7</td>
+        <td>H</td>
+        <td class="monospace">A P P</td>
+        <td class="monospace">T I I</td>
+    </tr>
+    <tr>
+        <td>5</td>
+        <td>4</td>
+        <td>E</td>
+        <td class="monospace">O T S</td>
+        <td class="monospace">K P O</td>
+    </tr>
+    <tr>
+        <td>6</td>
+        <td>17</td>
+        <td>R</td>
+        <td class="monospace">M B T</td>
+        <td class="monospace">V K C</td>
+    </tr>
+</table>
+
+<div class="section red-section">
+    <h2><span class="step-number">4</span>Reconstructing the Key and Message</h2>
+    <p>Based on our analysis, we've determined the most likely key to be:</p>
+    <p class="monospace" style="font-size: 24px; text-align: center; color: #b71c1c;">CIPHER</p>
+
+    <div class="explanation">
+        <p><strong>Validation:</strong> This matches our example perfectly! The key "CIPHER" corresponds to shift values
+            of 2, 8, 15, 7, 4, 17, which is exactly what our analysis found.</p>
+    </div>
+
+    <h3>Final Decryption</h3>
+    <p>Now that we know the key, we can decrypt the entire message:</p>
+
+    <div class="example-calculation">
+        <p>For each letter in the ciphertext, we subtract the corresponding key letter value (mod 26):</p>
+        <table>
+            <tr>
+                <th>Position</th>
+                <th>0</th>
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+            </tr>
+            <tr>
+                <td>Ciphertext</td>
+                <td>O</td>
+                <td>M</td>
+                <td>T</td>
+                <td>A</td>
+                <td>O</td>
+                <td>M</td>
+                <td>P</td>
+                <td>A</td>
+                <td>V</td>
+                <td>P</td>
+                <td>T</td>
+            </tr>
+            <tr>
+                <td>Key</td>
+                <td>C</td>
+                <td>I</td>
+                <td>P</td>
+                <td>H</td>
+                <td>E</td>
+                <td>R</td>
+                <td>C</td>
+                <td>I</td>
+                <td>P</td>
+                <td>H</td>
+                <td>E</td>
+            </tr>
+            <tr>
+                <td>Plaintext</td>
+                <td>M</td>
+                <td>E</td>
+                <td>E</td>
+                <td>T</td>
+                <td>M</td>
+                <td>E</td>
+                <td>A</td>
+                <td>T</td>
+                <td>T</td>
+                <td>H</td>
+                <td>E</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Position</th>
+                <th>11</th>
+                <th>12</th>
+                <th>13</th>
+                <th>14</th>
+                <th>15</th>
+                <th>16</th>
+                <th>17</th>
+                <th>18</th>
+                <th>19</th>
+                <th>20</th>
+                <th>21</th>
+            </tr>
+            <tr>
+                <td>Ciphertext</td>
+                <td>B</td>
+                <td>U</td>
+                <td>K</td>
+                <td>D</td>
+                <td>P</td>
+                <td>S</td>
+                <td>T</td>
+                <td>P</td>
+                <td>J</td>
+                <td>M</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Key</td>
+                <td>R</td>
+                <td>C</td>
+                <td>I</td>
+                <td>P</td>
+                <td>H</td>
+                <td>E</td>
+                <td>R</td>
+                <td>C</td>
+                <td>I</td>
+                <td>P</td>
+                <td>H</td>
+            </tr>
+            <tr>
+                <td>Plaintext</td>
+                <td>U</td>
+                <td>S</td>
+                <td>U</td>
+                <td>A</td>
+                <td>L</td>
+                <td>P</td>
+                <td>L</td>
+                <td>A</td>
+                <td>C</td>
+                <td>E</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <p>The fully decrypted message is:</p>
+    <p class="monospace" style="font-size: 24px; text-align: center; color: #2e7d32;">MEETMEATTHEUSUALPLACE</p>
+
+    <div class="note">
+        <p><strong>Success!</strong> We have successfully recovered both the key (CIPHER) and the original message
+            (MEETMEATTHEUSUALPLACE) from the ciphertext.</p>
+    </div>
+</div>
+
+<div class="section blue-section">
+    <h2>Summary of the Vigenère Cryptanalysis Process</h2>
+    <p>Let's review the steps we took to break the Vigenère cipher:</p>
+
+    <ol>
+        <li><strong>Determine Key Length</strong>
+            <ul>
+                <li>Calculate the Index of Coincidence (IC) for different key length hypotheses</li>
+                <li>The key length with an IC closest to English text (0.067) is likely correct</li>
+            </ul>
+        </li>
+        <li><strong>Separate the Ciphertext</strong>
+            <ul>
+                <li>Divide the ciphertext into groups based on the key length</li>
+                <li>Each group was encrypted with the same Caesar shift</li>
+            </ul>
+        </li>
+        <li><strong>Break Each Caesar Cipher</strong>
+            <ul>
+                <li>For each group, try all 26 possible shifts</li>
+                <li>Use chi-squared analysis to find the shift that best matches English letter frequencies</li>
+            </ul>
+        </li>
+        <li><strong>Reconstruct the Key and Message</strong>
+            <ul>
+                <li>Combine the shift values to form the key</li>
+                <li>Use the key to decrypt the entire message</li>
+            </ul>
+        </li>
+    </ol>
+
+    <div class="explanation">
+        <p><strong>Why this works:</strong> The Vigenère cipher's strength comes from using multiple Caesar ciphers,
+            making simple frequency analysis ineffective. However, once we determine the key length, we can separate the
+            ciphertext into individual Caesar ciphers, which are much easier to break.</p>
+    </div>
+
+    <h3>Modern Applications and Limitations</h3>
+    <p>While the Vigenère cipher was once considered unbreakable, modern cryptography has far surpassed it in security.
+        However, understanding how to break this cipher teaches important principles about:</p>
+
+    <ul>
+        <li>Statistical analysis in cryptography</li>
+        <li>The importance of key length and complexity</li>
+        <li>Why modern encryption algorithms use much longer keys and more complex operations</li>
+    </ul>
+
+    <div class="note">
+        <p>Modern cryptographic algorithms like AES (Advanced Encryption Standard) use keys of 128, 192, or 256 bits and
+            employ sophisticated mathematical operations that make them resistant to the kind of statistical analysis we
+            used here.</p>
+    </div>
+</div>
+    </div></body></html>
