@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/Vegenire.module.css";
-import Data from "./Words.json";
+import Data from "./Words2.json";
 import VKData from "./VK.json";
 import * as VigenereLogic from "./VigenereLogic";
 
@@ -299,7 +299,7 @@ export default function VCracker() {
         setIsLoading(false);
 
         // Optionally refine the key if recognition is low
-        if (wordStats.percentage < 70) {
+        if (wordStats.percentage < 90) {
           const shouldRefine = window.confirm(
             `Word recognition is low (${wordStats.percentage.toFixed(
               2
@@ -457,7 +457,7 @@ export default function VCracker() {
         refineText: ciphertext,
         refineDict: dictionary,
         refineTarget: targetRecognition,
-        refineMaxIter: 100, // Use more iterations for refinement
+        refineMaxIter: 5000, // Use more iterations for refinement
       },
     });
   };

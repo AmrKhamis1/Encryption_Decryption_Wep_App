@@ -242,31 +242,32 @@ const refineKey = (
   let iterations = 0;
   let improved = false;
   let lastImprovedIteration = 0;
+  const progressUpdates = [];
 
   // Continue refining until we reach target or max iterations
-  // Add a stagnation check: if no improvement in last 10 iterations, try more aggressive changes
   while (
     (bestScore < targetPercentage && iterations < maxIters) ||
     (iterations < maxIters && iterations - lastImprovedIteration < 10)
   ) {
     iterations++;
-
-    if (progressCallback) {
-      progressCallback(
-        `Refining key (iteration ${iterations}/${maxIters}). Current recognition: ${bestScore.toFixed(
-          2
-        )}%`
-      );
+    if (iterations % 5 === 0) {
+      progressUpdates.push({
+        iteration: iterations,
+        score: bestScore,
+        key: bestKey,
+      });
     }
 
     let foundBetter = false;
-
-    // Stagnation strategy: if stuck for a while, make more dramatic changes
     const stagnating = iterations - lastImprovedIteration > 5;
 
-    // Try changing one letter at a time
-    for (let pos = 0; pos < bestKey.length; pos++) {
-      // Random shuffling of shifts to prevent getting stuck in local maxima
+    // Try different strategies based on current score and stagnation
+    const highScore = bestScore > 90;
+    const moderateScore = bestScore > 60 && bestScore <= 90;
+    const lowScore = bestScore <= 60;
+
+    // Strategy 1: Always try single character modifications first
+    for (let pos = 0; pos < bestKey.length && !foundBetter; pos++) {
       const shiftOrder = Array.from({ length: 26 }, (_, i) => i);
       for (let i = shiftOrder.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -274,16 +275,12 @@ const refineKey = (
       }
 
       for (const shift of shiftOrder) {
-        // Skip current letter
         if (bestKey.charCodeAt(pos) - 65 === shift) continue;
-
-        // Create new key with this letter changed
         const newKey =
           bestKey.substring(0, pos) +
           String.fromCharCode(65 + shift) +
           bestKey.substring(pos + 1);
 
-        // Test this key
         const decrypted = decryptWithKey(ciphertext, newKey);
         const wordStats = countRecognizedWords(decrypted, dictionary);
 
@@ -298,9 +295,10 @@ const refineKey = (
           break;
         }
       }
+
       if (foundBetter) break;
 
-      // If stagnating, try swapping adjacent letters
+      // Try swapping adjacent letters if we're stagnating
       if (stagnating && pos < bestKey.length - 1) {
         const swappedKey =
           bestKey.substring(0, pos) +
@@ -324,9 +322,9 @@ const refineKey = (
       }
     }
 
-    // If stuck, try random changes
+    // If no improvement yet, try multiple random changes based on stagnation level
     if (!foundBetter) {
-      // As we get more stuck, make more dramatic changes
+      // Calculate how many characters to change based on stagnation level
       const changeCount = Math.min(
         Math.floor((iterations - lastImprovedIteration) / 3) + 1,
         Math.floor(bestKey.length / 2)
@@ -352,10 +350,155 @@ const refineKey = (
         bestWordStats = wordStats;
         improved = true;
         lastImprovedIteration = iterations;
+        foundBetter = true;
       }
     }
 
-    // If we reach the target, break
+    // Strategy for high scores (>90%) that are stagnating
+    if (!foundBetter && highScore && stagnating) {
+      // Try adding a character to the key (at different positions, not just the end)
+      const positions = [0, bestKey.length]; // Try beginning and end first
+      if (bestKey.length > 2) {
+        positions.push(Math.floor(bestKey.length / 2)); // Try middle too
+      }
+
+      for (const pos of positions) {
+        if (foundBetter) break;
+
+        // Try a few different characters at this position
+        for (let attempt = 0; attempt < 3 && !foundBetter; attempt++) {
+          const randomChar = String.fromCharCode(
+            65 + Math.floor(Math.random() * 26)
+          );
+          const newKey =
+            bestKey.substring(0, pos) + randomChar + bestKey.substring(pos);
+
+          const decrypted = decryptWithKey(ciphertext, newKey);
+          const wordStats = countRecognizedWords(decrypted, dictionary);
+
+          if (wordStats.percentage > bestScore) {
+            bestKey = newKey;
+            bestScore = wordStats.percentage;
+            bestDecrypted = decrypted;
+            bestWordStats = wordStats;
+            improved = true;
+            lastImprovedIteration = iterations;
+            foundBetter = true;
+          }
+        }
+      }
+
+      // If adding didn't help and key length > 1, try removing a character from different positions
+      if (!foundBetter && bestKey.length > 1) {
+        const positions = [bestKey.length - 1, 0]; // Try removing from end and beginning
+        if (bestKey.length > 2) {
+          positions.push(Math.floor(bestKey.length / 2)); // Try middle too
+        }
+
+        for (const pos of positions) {
+          if (foundBetter) break;
+
+          const newKey = bestKey.substring(0, pos) + bestKey.substring(pos + 1);
+
+          const decrypted = decryptWithKey(ciphertext, newKey);
+          const wordStats = countRecognizedWords(decrypted, dictionary);
+
+          if (wordStats.percentage > bestScore) {
+            bestKey = newKey;
+            bestScore = wordStats.percentage;
+            bestDecrypted = decrypted;
+            bestWordStats = wordStats;
+            improved = true;
+            lastImprovedIteration = iterations;
+            foundBetter = true;
+          }
+        }
+      }
+    }
+
+    // Special strategy for moderate scores (60-90%) that are stagnating
+    if (
+      !foundBetter &&
+      moderateScore &&
+      stagnating &&
+      iterations - lastImprovedIteration > 8
+    ) {
+      // Try more significant length changes
+      if (bestKey.length < 10) {
+        // Don't let keys get too long
+        // Try adding 2 characters
+        let newKey =
+          bestKey +
+          String.fromCharCode(65 + Math.floor(Math.random() * 26)) +
+          String.fromCharCode(65 + Math.floor(Math.random() * 26));
+
+        const decrypted = decryptWithKey(ciphertext, newKey);
+        const wordStats = countRecognizedWords(decrypted, dictionary);
+
+        if (wordStats.percentage > bestScore) {
+          bestKey = newKey;
+          bestScore = wordStats.percentage;
+          bestDecrypted = decrypted;
+          bestWordStats = wordStats;
+          improved = true;
+          lastImprovedIteration = iterations;
+          foundBetter = true;
+        }
+      }
+
+      // Try removing 2 characters (if long enough)
+      if (!foundBetter && bestKey.length > 3) {
+        const newKey = bestKey.substring(0, bestKey.length - 2);
+
+        const decrypted = decryptWithKey(ciphertext, newKey);
+        const wordStats = countRecognizedWords(decrypted, dictionary);
+
+        if (wordStats.percentage > bestScore) {
+          bestKey = newKey;
+          bestScore = wordStats.percentage;
+          bestDecrypted = decrypted;
+          bestWordStats = wordStats;
+          improved = true;
+          lastImprovedIteration = iterations;
+        }
+      }
+    }
+
+    // Extreme measures for low scores or severe stagnation
+    if (!foundBetter && (lowScore || iterations - lastImprovedIteration > 15)) {
+      // Try completely different key lengths
+      const possibleLengths = [2, 3, 4, 5, 6];
+
+      // Skip current length
+      const candidateLengths = possibleLengths.filter(
+        (len) => len !== bestKey.length
+      );
+
+      // Pick one random length to try
+      if (candidateLengths.length > 0) {
+        const newLength =
+          candidateLengths[Math.floor(Math.random() * candidateLengths.length)];
+        let newKey = "";
+
+        // Generate a completely new random key of the chosen length
+        for (let i = 0; i < newLength; i++) {
+          newKey += String.fromCharCode(65 + Math.floor(Math.random() * 26));
+        }
+
+        const decrypted = decryptWithKey(ciphertext, newKey);
+        const wordStats = countRecognizedWords(decrypted, dictionary);
+
+        if (wordStats.percentage > bestScore) {
+          bestKey = newKey;
+          bestScore = wordStats.percentage;
+          bestDecrypted = decrypted;
+          bestWordStats = wordStats;
+          improved = true;
+          lastImprovedIteration = iterations;
+        }
+      }
+    }
+
     if (bestScore >= targetPercentage) {
       break;
     }
@@ -367,6 +510,7 @@ const refineKey = (
     iterations,
     wordStats: bestWordStats,
     decrypted: bestDecrypted,
+    progressUpdates,
   };
 };
 
